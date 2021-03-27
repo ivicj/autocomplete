@@ -3,15 +3,15 @@
     <button @click.prevent="show = 'stores'">Show stores</button>
     <button @click.prevent="show = 'cities'">Show cities</button>
 
-    <search-autocomplete :items="dynamicStores" />
+    <search-autocomplete :items="dynamicStores"  @filteredResults="filteredResults($event)"/>
 
     <ul v-if="show === 'stores'">
-      <li v-for="store in dynamicStores" :key="store.uuid">
+      <li v-for="store in filteredDynamicStores" :key="store.uuid">
         {{ store.addressName }}
       </li>
     </ul>
     <ul v-if="show === 'cities'">
-      <li v-for="city in cities" :key="city">{{ city }}</li>
+      <li v-for="city in dynamicCities" :key="city">{{ city }}</li>
     </ul>
   </div>
 </template>
@@ -29,6 +29,7 @@ export default {
       stores,
       dynamicStores: [],
       dynamicCities: [],
+      filteredDynamicStores: [],
       show: "",
       cities: ["Amsterdam", "Veghel"],
     };
@@ -39,11 +40,22 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           this.dynamicStores = data;
+          this.filteredDynamicStores = this.dynamicStores;
           this.dynamicCities = data
             .map((store) => store.city)
             .filter((item, idx, self) => self.indexOf(item) === idx);
         });
     },
+    filteredResults (filteredData) {
+      var filteredList = [];
+      if(Array.isArray(filteredData)){
+        filteredList = filteredData;
+      } else {
+        filteredList.push(filteredData); 
+      }
+      this.filteredDynamicStores = filteredList;
+      return this.filteredDynamicStores;
+   }
   },
   async created() {
     await this.prepareDynamicStores();

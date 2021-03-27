@@ -64,6 +64,7 @@ export default {
   },
   methods: {
     setResult(result) {
+      this.$emit("filteredResults", result);
       this.search = result.city + " - " + result.addressName;
       this.isOpen = false;
     },
@@ -118,10 +119,7 @@ export default {
       }
     },
     onEnter() {
-      this.search =
-        this.results[this.arrowCounter].city +
-        " - " +
-        this.results[this.arrowCounter].addressName; 
+      this.$emit("filteredResults", this.results);
       this.isOpen = false;
       this.arrowCounter = -1;
     },
