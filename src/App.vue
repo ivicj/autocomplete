@@ -7,14 +7,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
-import Stores from './components/Stores.vue';
+import { Component, Vue } from "vue-property-decorator";
+import HelloWorld from "./components/HelloWorld.vue";
+import Stores from "./components/Stores.vue";
 
 @Component({
   components: {
     HelloWorld,
-    Stores
+    Stores,
   },
 })
 export default class App extends Vue {}
