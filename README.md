@@ -1,4 +1,4 @@
-# autocomplete
+# Autocomplete
 
 > Proof of concept Vue.js application. Implementation of dynamic list that can be filtered and ordered alphabetically. 
 
@@ -7,12 +7,7 @@
 * [Screenshot](#screenshot)
 * [Requirements](#requirements)
 * [Project structure](#project-structure)
-* [Development server](#development-server)
-* [Code scaffolding](#code-scaffolding)
-* [Build](#build)
-* [Running unit tests](#running-unit-tests)
-* [Running end-to-end tests](#running-end-to-end-tests)
-* [Further help](#further-help)
+
 
 ## Description
 
