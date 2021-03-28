@@ -31,7 +31,7 @@ This project was generated with:
 
 This project consists of frontend applicaton.
 Notable folders:
-- components/Stores - Stores component
-- components/SearchAutocomplete - autocomplete
-- public/stores.json - Holds post model.
-- app.vue - Fetches data and renders them.
+- components/Stores - Stores component dynamically fetches data and renders them.
+- components/SearchAutocomplete - Custom autocomplete implementation.
+- public/stores.json - Holds stores data.
+- app.vue - Calls stores component.
