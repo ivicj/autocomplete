@@ -15,6 +15,7 @@ This is Vue.js application that dynamically fetches stores from a file, render t
 
 ## Screenshot
 
+![image](https://user-images.githubusercontent.com/16215654/112766901-28039080-9014-11eb-971b-15ff0ad9a54a.png)
 
 
 ## Requirements
