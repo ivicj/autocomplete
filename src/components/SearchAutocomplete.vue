@@ -16,7 +16,12 @@
         :key="i"
         @click="setResult(result)"
         class="autocomplete-result"
-        :class="{ 'is-active': i === arrowCounter, 'is-red': result.indicator === 'red', 'is-green': result.indicator === 'green' }"
+        :class="{
+          'is-active': i === arrowCounter,
+          'is-red': result.indicator === 'red',
+          'is-green': result.indicator === 'green',
+          'is-neutral': result.indicator === 'neutral' || null,
+        }"
       >
         {{ result.city }} - {{ result.addressName }}
       </li>
@@ -69,32 +74,39 @@ export default {
       this.isOpen = false;
     },
     filterResults() {
-      //   this.results = this.items.filter((item) => {
-      //     return item.city.toLowerCase().indexOf(this.search.toLowerCase()) > -1 || item.addressName.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-      //   });
-      this.results = this.items
-        .map((item) => {
-          if (item.city.toLowerCase().indexOf(this.search.toLowerCase()) > -1) {
-            item.indicator = "green";
-          } else if (
-            item.addressName.toLowerCase().indexOf(this.search.toLowerCase()) >
-            -1
-          ) {
-            item.indicator = "red";
-          } else item.indicator = null;
+      if (this.search !== "")
+        this.results = this.items
+          .map((item) => {
+            if (
+              item.city.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+            ) {
+              item.indicator = "green";
+            } else if (
+              item.addressName
+                .toLowerCase()
+                .indexOf(this.search.toLowerCase()) > -1
+            ) {
+              item.indicator = "red";
+            } else item.indicator = "neutral";
+            return item;
+          })
+          .filter((item) => {
+            return (
+              item.city.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+              item.addressName
+                .toLowerCase()
+                .indexOf(this.search.toLowerCase()) > -1
+            );
+          });
+      else
+        this.results = this.items.map((item) => {
+          item.indicator = "neutral";
           return item;
-        })
-        .filter((item) => {
-          return (
-            item.city.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-            item.addressName.toLowerCase().indexOf(this.search.toLowerCase()) >
-              -1
-          );
         });
     },
     onChange() {
       this.$emit("input", this.search);
-
+      this.arrowCounter = -1;
       if (this.isAsync) {
         this.isLoading = true;
       } else {
@@ -119,7 +131,15 @@ export default {
       }
     },
     onEnter() {
-      this.$emit("filteredResults", this.results);
+      if (this.arrowCounter >= 0) {
+        this.search =
+          this.results[this.arrowCounter].city +
+          " - " +
+          this.results[this.arrowCounter].addressName;
+        this.$emit("filteredResults", this.results[this.arrowCounter]);
+      } else {
+        this.$emit("filteredResults", this.results);
+      }
       this.isOpen = false;
       this.arrowCounter = -1;
     },
@@ -130,6 +150,18 @@ export default {
 <style>
 .autocomplete {
   position: relative;
+}
+
+input {
+  background-color: #fdc6134d;
+  border: 1px solid #fdc513;
+  padding: 5px;
+  line-height: 24px;
+
+}
+
+input:hover {                                 
+  cursor: text;
 }
 
 .autocomplete-results {
@@ -147,17 +179,21 @@ export default {
   cursor: pointer;
 }
 
+.autocomplete-result.is-neutral {
+  background-color: #eee;
+}
+
 .autocomplete-result.is-red {
-    background-color: red;
+  background-color: #b81417ad;
 }
 
 .autocomplete-result.is-green {
-    background-color: green;
+  background-color: #4aae9b;
 }
 
 .autocomplete-result.is-active,
 .autocomplete-result:hover {
-  background-color: #4aae9b;
+  background-color: #fdc513;
   color: white;
 }
 </style>
