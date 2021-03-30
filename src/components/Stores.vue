@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import stores from "../stores";
 import SearchAutocomplete from "./SearchAutocomplete.vue";
 
 export default {
@@ -41,7 +40,6 @@ export default {
   },
   data() {
     return {
-      stores,
       dynamicStores: [],
       dynamicCities: [],
       filteredDynamicStores: [],
