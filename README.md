@@ -7,6 +7,7 @@
 * [Screenshot](#screenshot)
 * [Requirements](#requirements)
 * [Project structure](#project-structure)
+* [Development server](#development-server)
 
 
 ## Description
@@ -35,3 +36,7 @@ Notable folders:
 - components/SearchAutocomplete - Custom autocomplete implementation.
 - public/stores.json - Holds stores data.
 - app.vue - Calls stores component.
+
+## Development server
+Run `npm run serve` for a dev server. Navigate to http://localhost:6058/. The app will automatically reload if you change any of the source files.
+
